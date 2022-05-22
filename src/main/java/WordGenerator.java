@@ -1,6 +1,6 @@
 import Exceptions.GeneratorException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
@@ -11,7 +11,10 @@ import java.util.Random;
 
 public class WordGenerator {
 
-    private static final Logger logger = LogManager.getLogger(WordGenerator.class);
+    @Value("${wordle.list}")
+    private static String wordleList;
+
+    private static final Logger logger = LoggerFactory.getLogger(WordGenerator.class);
 
 
     public static String dailyWord() throws GeneratorException {
@@ -32,7 +35,7 @@ public class WordGenerator {
             newWord = list.get(row);
             logger.info("Today's generated word is: {}",newWord);
 
-        } catch (IOException ioe) {
+        } catch (IOException| NullPointerException ioe) {
             String errorMsg = "Failed to generate today's wordle word, due to being unable to detect wordleWords.csv";
             logger.error(errorMsg);
             throw new GeneratorException(errorMsg,ioe);
