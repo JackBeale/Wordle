@@ -16,7 +16,12 @@ public class WordGenerator {
 
     private static final Logger logger = LoggerFactory.getLogger(WordGenerator.class);
 
-
+    /**
+     * This method will randomly generate the daily word
+     *
+     * @return the daily 6letter word as a String
+     * @throws GeneratorException when the list of valid words can't be traversed or found
+     */
     public static String dailyWord() throws GeneratorException {
 
         String newWord;
